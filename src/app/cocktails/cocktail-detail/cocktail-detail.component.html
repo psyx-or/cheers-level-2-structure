@@ -1,0 +1,32 @@
+<button routerLink="/list">🔙 Back to List</button>
+
+@let cocktail = cocktailSignal.value();
+@if (cocktail != null) {
+    <img [src]="cocktail.imageUrl" alt="Image {{ cocktail.name }}" />
+
+    <div class="props">
+    
+        <h3>
+            {{ cocktail.name }}
+            <span [id]="'star-' + cocktail.id" class="icon-star" [class.active]="cocktail.isFavorite" (click)="toggleFavorite(cocktail)"></span>
+        </h3>
+        <div></div>
+        
+        <div>Type:</div>
+        <div>
+            <span class="alcoholic" [class.yes]="cocktail.isAlcoholic">{{ cocktail.isAlcoholic ? 'Alcoholic' : 'Non alcoholic' }}</span>
+        </div>
+        
+        <div>Ingredients:</div>
+        <ul>
+            @for (ingredient of cocktail.ingredients; track ingredient) {
+                <li>{{ ingredient }}
+            }
+        </ul>
+        
+        <div>Instructions:</div>
+        <div>
+            {{ cocktail.instructions }}
+        </div>
+    </div>
+}

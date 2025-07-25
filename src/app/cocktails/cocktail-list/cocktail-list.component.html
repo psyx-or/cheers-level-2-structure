@@ -1,0 +1,31 @@
+<div>
+    <input #input type="text" placeholder="Search cocktails..." (keyup)="filtre.set(input.value)" />
+</div>
+
+<div class="conteneur">
+    @for (cocktail of filtredCocktails(); track cocktail.id) {
+        <div class="cocktail-card">
+            
+            <img [src]="cocktail.imageUrl" alt="Image {{ cocktail.name }}" />
+
+            <div class="props">
+            
+                <h3>
+                    <a [routerLink]="['/list', cocktail.id]">{{ cocktail.name }}</a>
+                    <span [id]="'star-' + cocktail.id" class="icon-star" [class.active]="cocktail.isFavorite" (click)="toggleFavorite(cocktail)"></span>
+                </h3>
+                
+                <div>
+                    <span class="alcoholic" [class.yes]="cocktail.isAlcoholic">{{ cocktail.isAlcoholic ? 'Alcoholic' : 'Non alcoholic' }}</span>
+                </div>
+                
+                <div>
+                    @for (ingredient of cocktail.ingredients; track ingredient; let first = $first) {
+                        @if (!first) {| }
+                        {{ ingredient }}
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
